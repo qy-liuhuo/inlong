@@ -127,6 +127,17 @@ public class TaskConstants extends CommonConstants {
     public static final String TASK_MONGO_SSL_ENABLE = "task.mongoTask.sslEnabled";
     public static final String TASK_MONGO_POLL_INTERVAL = "task.mongoTask.pollIntervalInMs";
 
+    // Oracle task
+    public static final String TASK_ORACLE_HOSTNAME = "task.oracleTask.hostname";
+    public static final String TASK_ORACLE_PORT = "task.oracleTask.port";
+    public static final String TASK_ORACLE_USER = "task.oracleTask.user";
+    public static final String TASK_ORACLE_PASSWORD = "task.oracleTask.password";
+    public static final String TASK_ORACLE_DBNAME = "task.oracleTask.dbname";
+    public static final String TASK_ORACLE_SERVERNAME = "task.oracleTask.serverName";
+    public static final String TASK_ORACLE_SCHEMA_INCLUDE_LIST = "task.oracleTask.schemaIncludeList";
+    public static final String TASK_ORACLE_TABLE_INCLUDE_LIST = "task.oracleTask.tableIncludeList";
+    public static final String TASK_ORACLE_SNAPSHOT_MODE = "task.oracleTask.snapshotMode";
+
     // PostgreSQL task
     public static final String TASK_POSTGRES_HOSTNAME = "task.postgreSQLTask.hostname";
     public static final String TASK_POSTGRES_PORT = "task.postgreSQLTask.port";
@@ -152,6 +163,19 @@ public class TaskConstants extends CommonConstants {
     public static final String TASK_MQTT_QUEUE_SIZE = "task.mqttTask.queueSize";
     public static final String TASK_MQTT_AUTOMATIC_RECONNECT = "task.mqttTask.automaticReconnect";
     public static final String TASK_MQTT_VERSION = "task.mqttTask.mqttVersion";
+
+    // SQLServer task
+    public static final String TASK_SQLSERVER_HOSTNAME = "task.sqlserverTask.hostname";
+    public static final String TASK_SQLSERVER_PORT = "task.sqlserverTask.port";
+    public static final String TASK_SQLSERVER_USER = "task.sqlserverTask.user";
+    public static final String TASK_SQLSERVER_PASSWORD = "task.sqlserverTask.password";
+    public static final String TASK_SQLSERVER_DB_NAME = "task.sqlserverTask.dbname";
+    public static final String TASK_SQLSERVER_SNAPSHOT_MODE = "task.sqlserverTask.snapshot.mode";
+    public static final String TASK_SQLSERVER_SERVER_NAME = "task.sqlserverTask.serverName";
+    public static final String TASK_SQLSERVER_SCHEMA_NAME = "task.sqlserverTask.schemaName";
+    public static final String TASK_SQLSERVER_TABLE_NAME = "task.sqlserverTask.tableName";
+    public static final String TASK_SQLSERVER_UNIX_TIMESTAMP_FORMAT_ENABLE =
+            "task.sqlserverTask.unixTimestampFormatEnable";
 
     public static final String TASK_STATE = "task.state";
 
