@@ -80,6 +80,14 @@
     </dependencies>
 
     <build>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <includes>
+                    <include>log4j.properties</include>
+                </includes>
+            </resource>
+        </resources>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -94,6 +102,11 @@
                         <configuration>
                             <artifactSet>
                                 <includes>
+                                    <include>io.opentelemetry*</include>
+                                    <include>io.opentelemetry.*</include>
+                                    <include>io.opentelemetry-sdk.*</include>
+                                    <include>com.squareup.okhttp3</include>
+                                    <include>com.squareup.okio</include>
                                     <include>org.apache.inlong:*</include>
                                     <include>io.debezium:debezium-api</include>
                                     <include>io.debezium:debezium-embedded</include>

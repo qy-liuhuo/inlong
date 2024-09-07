@@ -17,6 +17,7 @@
 
 package org.apache.inlong.sort.mysql.source.reader;
 
+import org.apache.inlong.sort.base.util.OpenTelemetryLogUtils;
 import org.apache.inlong.sort.mysql.RowDataDebeziumDeserializeSchema;
 
 import com.ververica.cdc.connectors.mysql.debezium.DebeziumUtils;
@@ -89,6 +90,8 @@ public class MySqlSourceReader<T>
     private MySqlBinlogSplit suspendedBinlogSplit;
     private final DebeziumDeserializationSchema<T> metricSchema;
 
+    private final OpenTelemetryLogUtils openTelemetryLogUtils;
+
     public MySqlSourceReader(
             FutureCompletingBlockingQueue<RecordsWithSplitIds<SourceRecords>> elementQueue,
             Supplier<MySqlSplitReader> splitReaderSupplier,
@@ -109,13 +112,23 @@ public class MySqlSourceReader<T>
         this.mySqlSourceReaderContext = context;
         this.suspendedBinlogSplit = null;
         this.metricSchema = metricSchema;
+        this.openTelemetryLogUtils = new OpenTelemetryLogUtils();
     }
 
     @Override
     public void start() {
+        openTelemetryLogUtils.install();
+        LOG.info("start mysql source reader");
         if (getNumberOfCurrentlyAssignedSplits() == 0) {
             context.sendSplitRequest();
         }
+    }
+
+    @Override
+    public void close() throws Exception {
+        LOG.info("close mysql source reader");
+        openTelemetryLogUtils.uninstall();
+        super.close();
     }
 
     @Override

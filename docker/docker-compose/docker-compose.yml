@@ -129,6 +129,10 @@ services:
       - |
         FLINK_PROPERTIES=
         jobmanager.rpc.address: jobmanager
+    volumes:
+      - ./log-collector/flink/log4j.properties:/opt/flink/conf/log4j.properties
+#      - ./log-collector/flink/log4j-session.properties:/opt/flink/conf/log4j-session.properties
+#      - ./log-collector/flink/flink-conf.yaml:/opt/flink/conf/flink-conf.yaml
     ports:
       - "8081:8081"
     command: jobmanager
@@ -142,4 +146,17 @@ services:
         FLINK_PROPERTIES=
         jobmanager.rpc.address: jobmanager
         taskmanager.numberOfTaskSlots: 2
+    volumes:
+      - ./log-collector/flink/log4j.properties:/opt/flink/conf/log4j.properties
+#      - ./log-collector/flink/log4j-session.properties:/opt/flink/conf/log4j-session.properties
+#      - ./log-collector/flink/flink-conf.yaml:/opt/flink/conf/flink-conf.yaml
     command: taskmanager
+
+  logcollector:
+    image: otel/opentelemetry-collector-contrib:0.107.0
+    container_name: logcollector
+    volumes:
+      - ./log-collector/otel/otel-config.yaml:/otel-config.yaml
+    command: [ "--config=/otel-config.yaml","--feature-gates=-component.UseLocalHostAsDefaultHost" ]
+    ports:
+      - "4317:4317"
