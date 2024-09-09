@@ -1,0 +1,13 @@
+receivers:
+  otlp:
+    protocols:
+      grpc:
+        endpoint: logcollector:4317
+exporters:
+  logging:
+    verbosity: detailed
+service:
+  pipelines:
+    logs:
+      receivers: [otlp]
+      exporters: [logging]

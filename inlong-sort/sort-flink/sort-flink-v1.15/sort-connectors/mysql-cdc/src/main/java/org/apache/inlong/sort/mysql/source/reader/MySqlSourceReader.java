@@ -17,7 +17,7 @@
 
 package org.apache.inlong.sort.mysql.source.reader;
 
-import org.apache.inlong.sort.base.util.OpenTelemetryLogUtils;
+import org.apache.inlong.sort.base.util.OpenTelemetryLogger;
 import org.apache.inlong.sort.mysql.RowDataDebeziumDeserializeSchema;
 
 import com.ververica.cdc.connectors.mysql.debezium.DebeziumUtils;
@@ -90,7 +90,7 @@ public class MySqlSourceReader<T>
     private MySqlBinlogSplit suspendedBinlogSplit;
     private final DebeziumDeserializationSchema<T> metricSchema;
 
-    private final OpenTelemetryLogUtils openTelemetryLogUtils;
+    private final OpenTelemetryLogger openTelemetryLogger;
 
     public MySqlSourceReader(
             FutureCompletingBlockingQueue<RecordsWithSplitIds<SourceRecords>> elementQueue,
@@ -112,13 +112,12 @@ public class MySqlSourceReader<T>
         this.mySqlSourceReaderContext = context;
         this.suspendedBinlogSplit = null;
         this.metricSchema = metricSchema;
-        this.openTelemetryLogUtils = new OpenTelemetryLogUtils();
+        this.openTelemetryLogger = new OpenTelemetryLogger(); // initialize OpenTelemetryLogger
     }
 
     @Override
     public void start() {
-        openTelemetryLogUtils.install();
-        LOG.info("start mysql source reader");
+        openTelemetryLogger.install(); // install OpenTelemetryLogger
         if (getNumberOfCurrentlyAssignedSplits() == 0) {
             context.sendSplitRequest();
         }
@@ -126,8 +125,7 @@ public class MySqlSourceReader<T>
 
     @Override
     public void close() throws Exception {
-        LOG.info("close mysql source reader");
-        openTelemetryLogUtils.uninstall();
+        openTelemetryLogger.uninstall(); // uninstall OpenTelemetryLogger
         super.close();
     }
 
